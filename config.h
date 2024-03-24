@@ -13,13 +13,13 @@ static const float    resize_keep_aspect_ratio= 1.03;
 ///---Offsets---///
 /*0)offsetx          1)offsety
  *2)maxwidth         3)maxheight */
-static const uint8_t offsets[] = {0,0,0,0};
+static const uint8_t offsets[] = {0,20,0,20};
 ///---Colors---///
 /*0)focuscol         1)unfocuscol
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#d7d5ba","#1a1e25","#778A6F","#A0BB8A","#5E81AD","#1a1e25","#1a1e25"};
+static const char *colors[] = {"#C6D0F5","#303446","#A6D189","#F4B8E4","#8CAAEE","#303446","#303446"};
 /* if this is set to true the inner border and outer borders colors will be swapped */
 static const bool inverted_colors = true;
 ///---Cursor---///
@@ -32,7 +32,7 @@ static const bool inverted_colors = true;
 /*0) Outer border size. If you put this negative it will be a square.
  *1) Full borderwidth    2) Magnet border size
  *3) Resize border size  */
-static const uint8_t borders[] = {4,4,4,6};
+static const uint8_t borders[] = {3,5,5,4};
 /* Windows that won't have a border.
  * It uses substring comparison with what is found in the WM_NAME
  * attribute of the window. You can test this using `xprop WM_NAME`
@@ -42,6 +42,7 @@ static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
 static const char *menucmd[]   = { "/usr/bin/rofi", "-show", "run", NULL };
 static const char *terminal[]  = { "/usr/local/bin/st", NULL };
+static const char *folder[]     = { "/usr/bin/thunar",NULL};
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg)
 {
@@ -180,7 +181,7 @@ static key keys[] = {
     // Make the window unkillable
     {  MOD ,              XK_a,          unkillable,        {}},
     // Make the window appear always on top
-    {  MOD,               XK_t,          always_on_top,     {}},
+    {  MOD |SHIFT ,       XK_t,          always_on_top,     {}},
     // Make the window stay on all workspaces
     {  MOD ,              XK_f,          fix,               {}},
     // Move the cursor
@@ -196,6 +197,7 @@ static key keys[] = {
     // Start programs
     {  MOD ,              XK_d,          start,             {.com = menucmd}},
     {  MOD ,              XK_Return,     start,             {.com = terminal}},
+    {  MOD ,              XK_t,          start,             {.com = folder}},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_q,          twobwm_exit,       {.i=0}},
     {  MOD |CONTROL,      XK_r,          twobwm_restart,    {.i=0}},
